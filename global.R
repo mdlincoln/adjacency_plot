@@ -2,10 +2,8 @@ library(igraph)
 library(dplyr)
 library(ggplot2)
 
-original_edgelist <- read.csv("les_mis.csv", stringsAsFactors = FALSE)
-#original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
-#original_edgelist <- read.csv("dutch_printmakers.csv", stringsAsFactors = FALSE)
-graph <- graph.data.frame(original_edgelist, directed = FALSE)
+original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
+graph <- graph.data.frame(original_edgelist, directed = TRUE)
 
 V(graph)$comm <- membership(walktrap.community(graph))
 V(graph)$degree <- degree(graph)
