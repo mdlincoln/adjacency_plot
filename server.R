@@ -5,18 +5,13 @@ library(lazyeval)
 
 shinyServer(function(input, output, session) {
 
-  # Returns a character vector of the vertices based on
+  # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
-    switch(
-      input$arr_var,
-      "alph" = return((node_list %>% arrange(name))$name),
-      "weight" = return((node_list %>% arrange(weight))$name),
-      "comm" = return((node_list %>% arrange(comm))$name),
-      "degree" = return((node_list %>% arrange(degree))$name),
-      "closeness" = return((node_list %>% arrange(closeness))$name),
-      "betweenness" = return((node_list %>% arrange(betweenness))$name),
-      "eigen" = return((node_list %>% arrange(eigen))$name)
-    )
+    if(input$arr_var == "alph") {
+      return((node_list %>% arrange(name))$name)
+    } else {
+      return((node_list %>% arrange_(input$arr_var))$name)
+    }
   })
 
   # Sort the edge list based on the given arrangement variable
