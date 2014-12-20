@@ -1,4 +1,5 @@
 library(shiny)
+library(markdown)
 
 fluidPage(
   titlePanel("Adjacency matrix visualization with R and ggplot2"),
