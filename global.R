@@ -1,6 +1,5 @@
 library(igraph)
 library(dplyr)
-library(ggplot2)
 
 original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
 original_nodelist <- read.csv("goltzius_nodes.csv", stringsAsFactors = FALSE)
