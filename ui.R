@@ -1,6 +1,9 @@
 library(shiny)
 
-sidebarLayout(
+fluidPage(
+  titlePanel("Adjacency matrix visualization with R and ggplot2"),
+
+  sidebarLayout(
   sidebarPanel(
     selectInput(
       "arr_var",
@@ -15,7 +18,8 @@ sidebarLayout(
         "Artist birthdate" = "birth"
       ),
       selected = "alph"
-    )
+    ),
+    includeMarkdown("description.md")
   ),
-  plotOutput("adj_plot", height = "700px", width = "100%")
-)
+  mainPanel(plotOutput("adj_plot", height = "700px", width = "100%"))
+))
