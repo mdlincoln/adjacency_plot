@@ -5,7 +5,7 @@ library(ggplot2)
 original_edgelist <- read.csv("les_mis.csv", stringsAsFactors = FALSE)
 #original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
 #original_edgelist <- read.csv("dutch_printmakers.csv", stringsAsFactors = FALSE)
-graph <- graph.data.frame(original_edgelist, directed = TRUE)
+graph <- graph.data.frame(original_edgelist, directed = FALSE)
 
 V(graph)$comm <- membership(walktrap.community(graph))
 V(graph)$degree <- degree(graph)
@@ -19,4 +19,5 @@ node_list <- node_list %>% mutate(comm = factor(comm, comm_order))
 
 edge_list <- get.data.frame(graph, what = "edges") %>%
   inner_join(node_list %>% select(name, comm), by = c("from" = "name")) %>%
-  inner_join(node_list %>% select(name, comm), by = c("to" = "name"))
+  inner_join(node_list %>% select(name, comm), by = c("to" = "name")) %>%
+  mutate(group = ifelse(comm.x == comm.y, comm.x, NA) %>% factor())

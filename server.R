@@ -26,7 +26,6 @@ shinyServer(function(input, output, session) {
 
     sorted_data <- edge_list %>%
       mutate(
-        group = ifelse(comm.x == comm.y, comm.x, NA) %>% factor(),
         to = factor(to, levels = name_order),
         from = factor(from, levels = name_order)
       )
