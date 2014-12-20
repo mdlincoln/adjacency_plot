@@ -1,8 +1,8 @@
 library(shiny)
 library(dplyr)
 
-shinyUI(fluidPage(
-  inputPanel(
+sidebarLayout(
+  sidebarPanel(
     selectInput(
       "arr_var",
       "Arrange by",
@@ -17,7 +17,5 @@ shinyUI(fluidPage(
       selected = "alph"
     )
   ),
-  mainPanel(
-    plotOutput("adj_plot")
-  )
-))
+  plotOutput("adj_plot", height = "700px", width = "100%")
+)
