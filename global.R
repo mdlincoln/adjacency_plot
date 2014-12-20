@@ -3,7 +3,8 @@ library(dplyr)
 library(ggplot2)
 
 original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
-graph <- graph.data.frame(original_edgelist, directed = TRUE)
+original_nodelist <- read.csv("goltzius_nodes.csv", stringsAsFactors = FALSE)
+graph <- graph.data.frame(original_edgelist, directed = TRUE, vertices = original_nodelist)
 
 V(graph)$comm <- membership(optimal.community(graph))
 V(graph)$degree <- degree(graph)

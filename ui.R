@@ -11,7 +11,8 @@ sidebarLayout(
         "Degree" = "degree",
         "Closeness Centrality" = "closeness",
         "Betweenness Centrality" = "betweenness",
-        "Eigenvector Centrality" = "eigen"
+        "Eigenvector Centrality" = "eigen",
+        "Artist birthdate" = "birth"
       ),
       selected = "alph"
     )
