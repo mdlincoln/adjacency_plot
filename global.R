@@ -2,21 +2,21 @@ library(igraph)
 library(dplyr)
 library(ggplot2)
 
-engraver_edges <- read.csv("goltzius_graph.csv")
+original_edgelist <- read.csv("les_mis.csv", stringsAsFactors = FALSE)
+#original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
+#original_edgelist <- read.csv("dutch_printmakers.csv", stringsAsFactors = FALSE)
+graph <- graph.data.frame(original_edgelist, directed = TRUE)
 
-engraver_graph <- graph.data.frame(engraver_edges, directed = TRUE)
+V(graph)$comm <- membership(walktrap.community(graph))
+V(graph)$degree <- degree(graph)
+V(graph)$closeness <- centralization.closeness(graph)$res
+V(graph)$betweenness <- centralization.betweenness(graph)$res
+V(graph)$eigen <- centralization.evcent(graph)$vector
 
-V(engraver_graph)$comm <- membership(walktrap.community(engraver_graph))
-V(engraver_graph)$degree <- degree(engraver_graph)
-V(engraver_graph)$closeness <- centralization.closeness(engraver_graph)$res
-V(engraver_graph)$betweenness <- centralization.betweenness(engraver_graph)$res
-V(engraver_graph)$eigen <- centralization.evcent(engraver_graph)$vector
+node_list <- get.data.frame(graph, what = "vertices")
+comm_order <- (node_list %>% count(comm) %>% arrange(-n))$comm
+node_list <- node_list %>% mutate(comm = factor(comm, comm_order))
 
-edge_list <- get.data.frame(engraver_graph, what = "edges")
-node_list <- get.data.frame(engraver_graph, what = "vertices")
-
-adj_data <- edge_list %>%
-  inner_join(node_list, by = c("from" = "name")) %>%
-  inner_join(node_list, by = c("to" = "name")) %>%
-  mutate(group = as.factor(ifelse(comm.x == comm.y, comm.x, NA)))
-
+edge_list <- get.data.frame(graph, what = "edges") %>%
+  inner_join(node_list %>% select(name, comm), by = c("from" = "name")) %>%
+  inner_join(node_list %>% select(name, comm), by = c("to" = "name"))
