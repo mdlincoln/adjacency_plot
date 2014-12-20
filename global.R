@@ -5,7 +5,7 @@ library(ggplot2)
 original_edgelist <- read.csv("goltzius_graph.csv", stringsAsFactors = FALSE)
 graph <- graph.data.frame(original_edgelist, directed = TRUE)
 
-V(graph)$comm <- membership(walktrap.community(graph))
+V(graph)$comm <- membership(optimal.community(graph))
 V(graph)$degree <- degree(graph)
 V(graph)$closeness <- centralization.closeness(graph)$res
 V(graph)$betweenness <- centralization.betweenness(graph)$res
