@@ -7,7 +7,7 @@ Here, the cells of the matrix are colored based on their nodes' community member
 
 Ordering the axes of the matrix by different node attributes can help to clarify structural properties of the network in a way less legible in a traditional web visualization.
 
-[Read more at this blog post on the creation and interpretation of these plots.](http://mdlincoln.shinyapps.io/adjacency_plot/)
+[Read more at this blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
 
 [Gephi]: http://gephi.org
 
