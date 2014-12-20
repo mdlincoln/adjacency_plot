@@ -16,15 +16,10 @@ shinyServer(function(input, output, session) {
 
   # Sort the edge list based on the given arrangement variable
   plot_data <- reactive({
-
     name_order <- ordering()
-
-    sorted_data <- edge_list %>%
-      mutate(
+    sorted_data <- edge_list %>% mutate(
         to = factor(to, levels = name_order),
-        from = factor(from, levels = name_order)
-      )
-
+        from = factor(from, levels = name_order))
     return(sorted_data)
   })
 
@@ -32,8 +27,18 @@ shinyServer(function(input, output, session) {
     ggplot(plot_data(), aes(x = from, y = to, fill = group)) +
       geom_raster() +
       theme_bw() +
+      # Because we need the x and y axis to display every node,
+      # not just the nodes that have connections to each other,
+      # make sure that ggplot does not drop unused factor levels
       scale_x_discrete(drop = FALSE) +
       scale_y_discrete(drop = FALSE) +
-      theme(axis.text.x = element_text(angle = 270, hjust = 0), legend.position = "none", aspect.ratio = 1)
+      theme(
+        # Rotate the x-axis lables so they are legible
+        axis.text.x = element_text(angle = 270, hjust = 0, size = 12),
+        axis.text.y = element_text(size = 12),
+        # Force the plot into a square aspect ratio
+        aspect.ratio = 1,
+        # Hide the legend (optional)
+        legend.position = "none")
   })
 })
