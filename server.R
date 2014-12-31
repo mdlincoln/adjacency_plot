@@ -4,6 +4,18 @@ library(ggplot2)
 
 shinyServer(function(input, output, session) {
 
+  datasets <- observe({
+    node_list <- switch(
+      input$graph_set,
+      "goltzius" = goltzius_node_list,
+      "les_mis" = lm_node_list)
+
+    edge_list <- switch(
+      input$graph_set,
+      "goltzius" = goltzius_edge_list,
+      "les_mis" = lm_edge_list
+    )
+
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
     if(input$arr_var == "alph") {
@@ -78,4 +90,4 @@ shinyServer(function(input, output, session) {
     }
     return(member_html)
   })
-})
+})})

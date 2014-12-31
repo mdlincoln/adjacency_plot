@@ -6,6 +6,17 @@ fluidPage(
 
   sidebarLayout(
   sidebarPanel(
+
+    selectInput(
+      "graph_set",
+      "Dataset",
+      choices = c(
+        "Dutch Printkamers" = "goltzius",
+        "Les Misérables" = "les_mis"
+      ),
+      selected = "goltzius"
+    ),
+
     selectInput(
       "arr_var",
       "Arrange by",
@@ -20,6 +31,7 @@ fluidPage(
       ),
       selected = "alph"
     ),
+
     selectInput(
       "comm_var",
       "Community Algorithm",
@@ -30,11 +42,11 @@ fluidPage(
         "Edge Betweenness Community" = "edge_comm"
         ),
       selected = "optimal_com"
-    ),
-    includeMarkdown("description.md")
+    )
   ),
+
   mainPanel(
-    plotOutput("adj_plot", height = "700px", width = "100%"),
+    plotOutput("adj_plot", height = "900px", width = "100%"),
     h2("Community membership"),
     htmlOutput("membership_list")
   )
