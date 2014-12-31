@@ -56,8 +56,7 @@ shinyServer(function(input, output, session) {
 
   comm_membership <- reactive({
     membership_list <- node_list %>%
-      select_("name", "comm" = input$comm_var) %>%
-      arrange(comm)
+      select_("name", "comm" = input$comm_var)
     return(membership_list)
   })
 
