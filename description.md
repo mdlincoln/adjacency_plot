@@ -1,3 +1,5 @@
+### About
+
 While the circle-and-line idiom used by many network visualization tools such as [Gephi] can be useful for investigating the structure of small- and medium-scale networks, large-scale network visualizations tend to turn the worst kinds of [spaghetti plots][spaghetti].
 The abundance of crossing links creates a confusing visual pattern that masks the topological structure of the network.
 
@@ -6,6 +8,8 @@ One good alternative is to visualize an [adjacency matrix][matrix] encoding the 
 Here, the cells of the matrix are colored based on their nodes' community membership - those that share a community are colored, while those that connect across two different communities are gray.
 
 Ordering the axes of the matrix by different node attributes can help to clarify structural properties of the network in a way less legible in a traditional web visualization.
+
+### More links
 
 [Read more at this blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
 
