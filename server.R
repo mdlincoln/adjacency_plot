@@ -8,15 +8,28 @@ shinyServer(function(input, output, session) {
   ordering <- reactive({
     if(input$arr_var == "alph") {
       return((node_list %>% arrange(name))$name)
+    } else if(input$arr_var == "comm") {
+      return((node_list %>% arrange_(input$comm_var))$name)
     } else {
       return((node_list %>% arrange_(input$arr_var))$name)
     }
   })
 
+  # Determine a community for each edge. If two nodes belong to the
+  # same community, label the edge with that community. If not,
+  # the edge community value is 'NA'
+  coloring <- reactive({
+    colored_edges <- edge_list %>%
+      inner_join(node_list %>% select_("name", "comm" = input$comm_var), by = c("from" = "name")) %>%
+      inner_join(node_list %>% select_("name", "comm" = input$comm_var), by = c("to" = "name")) %>%
+      mutate(group = ifelse(comm.x == comm.y, comm.x, NA) %>% factor())
+    return(colored_edges)
+  })
+
   # Sort the edge list based on the given arrangement variable
   plot_data <- reactive({
     name_order <- ordering()
-    sorted_data <- edge_list %>% mutate(
+    sorted_data <- coloring() %>% mutate(
         to = factor(to, levels = name_order),
         from = factor(from, levels = name_order))
     return(sorted_data)
