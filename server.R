@@ -27,12 +27,11 @@ shinyServer(function(input, output, session) {
         "Eigenvector Centrality" = "eigen"
       )
 
-      var_choices <- switch(
-        input$graph_set,
-        "goltzius" = c(
-          base,
-          c("Artist birthdate" = "birth")),
-        "les_mis" = base)
+      if(input$graph_set == "goltzius") {
+        var_choices <- c(base, c("Artist birthdate" = "birth"))
+      } else {
+        var_choices <- base
+      }
 
       return(selectInput(
         "arr_var",
