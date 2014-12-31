@@ -25,7 +25,9 @@ fluidPage(
       "Community Algorithm",
       choices = c(
         "Optimal Community" = "optimal_comm",
-        "Walktrap Community" = "walktrap_comm"
+        "Walktrap Community" = "walktrap_comm",
+        "Spinglass Community" = "spinglass_comm",
+        "Edge Betweenness Community" = "edge_comm"
         ),
       selected = "optimal_com"
     ),

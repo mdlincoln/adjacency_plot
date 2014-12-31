@@ -12,6 +12,8 @@ graph <- graph.data.frame(original_edgelist, directed = TRUE, vertices = origina
 # node/vertex
 V(graph)$optimal_comm <- membership(optimal.community(graph))
 V(graph)$walktrap_comm <- membership(walktrap.community(graph))
+V(graph)$spinglass_comm <- membership(spinglass.community(graph))
+V(graph)$edge_comm <- membership(edge.betweenness.community(graph))
 V(graph)$degree <- degree(graph)
 V(graph)$closeness <- centralization.closeness(graph)$res
 V(graph)$betweenness <- centralization.betweenness(graph)$res
