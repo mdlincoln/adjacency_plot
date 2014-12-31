@@ -51,6 +51,31 @@ shinyServer(function(input, output, session) {
         # Force the plot into a square aspect ratio
         aspect.ratio = 1,
         # Hide the legend (optional)
-        legend.position = "none")
+        legend.position = "bottom")
+  })
+
+  comm_membership <- reactive({
+    membership_list <- node_list %>%
+      select_("name", "comm" = input$comm_var)
+    return(membership_list)
+  })
+
+  # Render an HTML list of community memberships beneath the display
+  output$membership_list <- renderUI({
+    # Get a table of community memberships based on the selected community
+    # detection method
+    members <- comm_membership()
+    comms <- unique(members$comm)
+
+    # Create and populate a list of HTML elements
+    member_html <- list()
+    for(i in comms) {
+      group_membs <- members$name[members$comm == i]
+      member_html[[i]] <- list(h3("Group", i))
+      for(a in group_membs) {
+        member_html[[i]][[a]] <- list(p(a))
+      }
+    }
+    return(member_html)
   })
 })
