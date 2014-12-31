@@ -11,7 +11,7 @@ fluidPage(
       "graph_set",
       "Dataset",
       choices = c(
-        "Dutch Printkamers" = "goltzius",
+        "Dutch Printmakers" = "goltzius",
         "Les Misérables" = "les_mis"
       ),
       selected = "goltzius"
