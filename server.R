@@ -16,6 +16,31 @@ shinyServer(function(input, output, session) {
       "les_mis" = lm_edge_list
     )
 
+    output$ordering_choices <- renderUI({
+
+      base <- c(
+        "Alphabetical" = "alph",
+        "Community" = "comm",
+        "Degree" = "degree",
+        "Closeness Centrality" = "closeness",
+        "Betweenness Centrality" = "betweenness",
+        "Eigenvector Centrality" = "eigen"
+      )
+
+      if(input$graph_set == "goltzius") {
+        var_choices <- c(base, c("Artist birthdate" = "birth"))
+      } else {
+        var_choices <- base
+      }
+
+      return(selectInput(
+        "arr_var",
+        "Arrange by",
+        choices = var_choices,
+        selected = "alph"
+      ))
+    })
+
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
     if(input$arr_var == "alph") {
@@ -83,10 +108,10 @@ shinyServer(function(input, output, session) {
     member_html <- list()
     for(i in comms) {
       group_membs <- members$name[members$comm == i]
-      member_html[[i]] <- list(h3("Group", i))
-      for(a in group_membs) {
-        member_html[[i]][[a]] <- list(p(a))
-      }
+      member_html[[i]] <- list(h3("Group", i), p(paste(group_membs, collapse = ", ")))
+#       for(a in group_membs) {
+#         member_html[[i]][[a]] <- list(a)
+#       }
     }
     return(member_html)
   })

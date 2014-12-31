@@ -9,9 +9,11 @@ Here, the cells of the matrix are colored based on their nodes' community member
 
 Ordering the axes of the matrix by different node attributes can help to clarify structural properties of the network in a way less legible in a traditional web visualization.
 
-### More links
+### Read more
 
-[Read more at this blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
+[A blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
+
+[Mike Bostock's d3 implementation of adjacency plots.](http://bost.ocks.org/mike/miserables/)
 
 [Gephi]: http://gephi.org
 
