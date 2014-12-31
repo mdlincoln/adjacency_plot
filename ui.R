@@ -17,20 +17,7 @@ fluidPage(
       selected = "goltzius"
     ),
 
-    selectInput(
-      "arr_var",
-      "Arrange by",
-      choices = c(
-        "Alphabetical" = "alph",
-        "Community" = "comm",
-        "Degree" = "degree",
-        "Closeness Centrality" = "closeness",
-        "Betweenness Centrality" = "betweenness",
-        "Eigenvector Centrality" = "eigen",
-        "Artist birthdate" = "birth"
-      ),
-      selected = "alph"
-    ),
+    uiOutput("ordering_choices"),
 
     selectInput(
       "comm_var",

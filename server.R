@@ -16,6 +16,32 @@ shinyServer(function(input, output, session) {
       "les_mis" = lm_edge_list
     )
 
+    output$ordering_choices <- renderUI({
+
+      base <- c(
+        "Alphabetical" = "alph",
+        "Community" = "comm",
+        "Degree" = "degree",
+        "Closeness Centrality" = "closeness",
+        "Betweenness Centrality" = "betweenness",
+        "Eigenvector Centrality" = "eigen"
+      )
+
+      var_choices <- switch(
+        input$graph_set,
+        "goltzius" = c(
+          base,
+          c("Artist birthdate" = "birth")),
+        "les_mis" = base)
+
+      return(selectInput(
+        "arr_var",
+        "Arrange by",
+        choices = var_choices,
+        selected = "alph"
+      ))
+    })
+
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
     if(input$arr_var == "alph") {
