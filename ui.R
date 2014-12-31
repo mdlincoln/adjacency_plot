@@ -35,6 +35,7 @@ fluidPage(
   ),
   mainPanel(
     plotOutput("adj_plot", height = "700px", width = "100%"),
+    h2("Community membership"),
     htmlOutput("membership_list")
   )
 ))
