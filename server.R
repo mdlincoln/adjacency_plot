@@ -108,10 +108,7 @@ shinyServer(function(input, output, session) {
     member_html <- list()
     for(i in comms) {
       group_membs <- members$name[members$comm == i]
-      member_html[[i]] <- list(h3("Group", i), p(paste(group_membs, collapse = ", ")))
-#       for(a in group_membs) {
-#         member_html[[i]][[a]] <- list(a)
-#       }
+      member_html[[i]] <- list(column(3,wellPanel(h3("Group", i), p(group_membs))))
     }
     return(member_html)
   })
