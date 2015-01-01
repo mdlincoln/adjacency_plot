@@ -1,4 +1,4 @@
-### About
+### Created by [Matthew Lincoln](http://matthewlincoln.net)
 
 While the circle-and-line idiom used by many network visualization tools such as [Gephi] can be useful for investigating the structure of small- and medium-scale networks, large-scale network visualizations tend to turn the worst kinds of [spaghetti plots][spaghetti].
 The abundance of crossing links creates a confusing visual pattern that masks the topological structure of the network.
