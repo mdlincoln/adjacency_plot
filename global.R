@@ -36,7 +36,7 @@ generate_graph_tables <- function(edge_table, node_table = NULL, directed = TRUE
 if(file.exists("data/goltzius.RData")) {
   load("data/goltzius.RData")
 } else {
-  goltzius_edgelist <- read.csv("data/csv/goltzius_graph.csv", stringsAsFactors = FALSE)
+  goltzius_edgelist <- read.csv("data/csv/goltzius_edges.csv", stringsAsFactors = FALSE)
   goltzius_nodelist <- read.csv("data/csv/goltzius_nodes.csv", stringsAsFactors = FALSE)
   goltzius_tables <- generate_graph_tables(goltzius_edgelist, goltzius_nodelist, directed = TRUE)
   goltzius_node_list <- goltzius_tables$nodes
@@ -47,7 +47,7 @@ if(file.exists("data/goltzius.RData")) {
 if(file.exists("data/les_mis.RData")) {
   load("data/les_mis.RData")
 } else {
-  lm_edgelist <- read.csv("data/csv/les_mis_graph.csv", stringsAsFactors = FALSE)
+  lm_edgelist <- read.csv("data/csv/les_mis_edges.csv", stringsAsFactors = FALSE)
   lm_tables <- generate_graph_tables(lm_edgelist, directed = FALSE)
   lm_node_list <- lm_tables$nodes
   lm_edge_list <- lm_tables$edges
