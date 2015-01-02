@@ -4,6 +4,8 @@ library(dplyr)
 generate_graph_tables <- function(graph) {
   # Calculate various network properties, adding them as attributes to each
   # node/vertex
+  print("Optimal communities...")
+  V(graph)$optimal_comm <- membership(optimal.community(graph))
   print("Walktrap communities...")
   V(graph)$walktrap_comm <- membership(walktrap.community(graph))
   print("Spinglass commmunities")

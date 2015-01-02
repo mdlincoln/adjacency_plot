@@ -27,10 +27,9 @@ fluidPage(
         "Spinglass Community" = "spinglass_comm",
         "Edge Betweenness Community" = "edge_comm"
       ),
-      selected = "optimal_com"
+      selected = "optimal_comm"
     )
   ),
-
 
   fluidRow(
     column(4, includeMarkdown("description.md")),
