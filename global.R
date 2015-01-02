@@ -52,3 +52,14 @@ if(file.exists("data/les_mis.RData")) {
   save(lm_node_list, lm_edge_list, file = "data/les_mis.RData")
 }
 
+
+if(file.exists("data/karate.RData")) {
+  load("data/karate.RData")
+} else {
+  karate_edgelist <- read.csv("data/csv/karate_edges.csv", stringsAsFactors = FALSE)
+  karate_graph <- graph.data.frame(karate_edgelist, directed = FALSE)
+  karate_tables <- generate_graph_tables(karate_graph)
+  karate_node_list <- karate_tables$nodes %>% mutate(name = as.numeric(name))
+  karate_edge_list <- karate_tables$edges %>% mutate(from = as.numeric(from), to = as.numeric(to))
+  save(karate_node_list, karate_edge_list, file = "data/karate.RData")
+}

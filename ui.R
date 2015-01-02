@@ -10,7 +10,8 @@ fluidPage(
       "Dataset",
       choices = c(
         "Dutch Printmakers" = "goltzius",
-        "Les Misérables" = "les_mis"
+        "Les Misérables" = "les_mis",
+        "Karate Club" = "karate"
       ),
       selected = "goltzius"
     ),
