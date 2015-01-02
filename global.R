@@ -1,11 +1,7 @@
 library(igraph)
 library(dplyr)
 
-generate_graph_tables <- function(edge_table, node_table = NULL, directed = TRUE) {
-  # Create iGraph object
-  print("Creating Igraph object...")
-  graph <- graph.data.frame(edge_table, directed = directed, vertices = node_table)
-
+generate_graph_tables <- function(graph) {
   # Calculate various network properties, adding them as attributes to each
   # node/vertex
   print("Walktrap communities...")
@@ -25,7 +21,7 @@ generate_graph_tables <- function(edge_table, node_table = NULL, directed = TRUE
   node_list <- get.data.frame(graph, what = "vertices")
   edge_list <- get.data.frame(graph, what = "edges")
 
-  if(directed) {
+  if(is.directed(graph)) {
     return(list(nodes = node_list, edges = edge_list))
   } else {
     edge_list <- rbind(edge_list, edge_list %>% rename(from = to, to = from))
@@ -38,7 +34,8 @@ if(file.exists("data/goltzius.RData")) {
 } else {
   goltzius_edgelist <- read.csv("data/csv/goltzius_edges.csv", stringsAsFactors = FALSE)
   goltzius_nodelist <- read.csv("data/csv/goltzius_nodes.csv", stringsAsFactors = FALSE)
-  goltzius_tables <- generate_graph_tables(goltzius_edgelist, goltzius_nodelist, directed = TRUE)
+  goltzius_graph <- graph.data.frame(goltzius_edgelist, directed = TRUE, vertices = goltzius_nodelist)
+  goltzius_tables <- generate_graph_tables(goltzius_graph)
   goltzius_node_list <- goltzius_tables$nodes
   goltzius_edge_list <- goltzius_tables$edges
   save(goltzius_edge_list, goltzius_node_list, file = "data/goltzius.RData")
@@ -48,7 +45,8 @@ if(file.exists("data/les_mis.RData")) {
   load("data/les_mis.RData")
 } else {
   lm_edgelist <- read.csv("data/csv/les_mis_edges.csv", stringsAsFactors = FALSE)
-  lm_tables <- generate_graph_tables(lm_edgelist, directed = FALSE)
+  lm_graph <- graph.data.frame(lm_edgelist, directed = FALSE)
+  lm_tables <- generate_graph_tables(lm_graph)
   lm_node_list <- lm_tables$nodes
   lm_edge_list <- lm_tables$edges
   save(lm_node_list, lm_edge_list, file = "data/les_mis.RData")
