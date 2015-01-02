@@ -65,3 +65,14 @@ if(file.exists("data/karate.RData")) {
   karate_edge_list <- karate_tables$edges %>% mutate(from = as.numeric(from), to = as.numeric(to))
   save(karate_node_list, karate_edge_list, file = "data/karate.RData")
 }
+
+if(file.exists("data/polbooks.RData")) {
+  load("data/polbooks.RData")
+} else {
+  polbooks_edgelist <- read.csv("data/csv/polbooks_edges.csv", stringsAsFactors = FALSE)
+  polbooks_nodelist <- read.csv("data/csv/polbooks_nodes.csv", stringsAsFactors = FALSE)
+  polbooks_graph <- graph.data.frame(polbooks_edgelist, directed = FALSE, vertices = polbooks_nodelist)
+  polbooks_tables <- generate_graph_tables(polbooks_graph)
+  polbooks_node_list <- polbooks_tables$nodes
+  polbooks_edge_list <- polbooks_tables$edges
+  save(polbooks_node_list, polbooks_edge_list, file = "data/polbooks.RData")

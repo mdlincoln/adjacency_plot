@@ -11,7 +11,8 @@ fluidPage(
       choices = c(
         "Dutch Printmakers" = "goltzius",
         "Les Misérables" = "les_mis",
-        "Karate Club" = "karate"
+        "Karate Club" = "karate",
+        "Political Books" = "polbooks"
       ),
       selected = "goltzius"
     ),

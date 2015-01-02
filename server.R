@@ -9,14 +9,16 @@ shinyServer(function(input, output, session) {
       input$graph_set,
       "goltzius" = goltzius_node_list,
       "les_mis" = lm_node_list,
-      "karate" = karate_node_list
+      "karate" = karate_node_list,
+      "polbooks" = polbooks_node_list
 
     )
     edge_list <- switch(
       input$graph_set,
       "goltzius" = goltzius_edge_list,
       "les_mis" = lm_edge_list,
-      "karate" = karate_edge_list
+      "karate" = karate_edge_list,
+      "polbooks" = polbooks_edge_list
     )
 
     output$ordering_choices <- renderUI({
