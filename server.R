@@ -21,6 +21,7 @@ shinyServer(function(input, output, session) {
       "polbooks" = polbooks_edge_list
     )
 
+    # Generate a selection menu for ordering choices
     output$ordering_choices <- renderUI({
 
       base <- c(
@@ -28,16 +29,8 @@ shinyServer(function(input, output, session) {
         "community"
       )
 
-      comm_vars <- c(
-        "optimal_comm",
-        "walktrap_comm",
-        "spinglass_comm",
-        "edge_comm"
-      )
-
       dataset_names <- names(node_list)
-
-      var_choices <- dataset_names %>% union(base) %>% setdiff(comm_vars)
+      var_choices <- dataset_names[grep("comm", dataset_names, invert = TRUE)] %>% union(base)
 
       return(selectInput(
         "arr_var",
@@ -46,6 +39,21 @@ shinyServer(function(input, output, session) {
         selected = "name"
       ))
     })
+
+    # Generate a selection menu for community detection choices
+    output$comm_choices <- renderUI({
+
+      dataset_names <- names(node_list)
+      comm_choices <- dataset_names[grep("comm", dataset_names)]
+
+      return(selectInput(
+        "comm_var",
+        "Community Algorithm",
+        choices = comm_choices,
+        selected = "optimal_comm"
+      ))
+    })
+
 
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({

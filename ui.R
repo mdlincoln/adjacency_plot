@@ -19,17 +19,7 @@ fluidPage(
 
     uiOutput("ordering_choices"),
 
-    selectInput(
-      "comm_var",
-      "Community Algorithm",
-      choices = c(
-        "Optimal Community" = "optimal_comm",
-        "Walktrap Community" = "walktrap_comm",
-        "Spinglass Community" = "spinglass_comm",
-        "Edge Betweenness Community" = "edge_comm"
-      ),
-      selected = "optimal_comm"
-    )
+    uiOutput("comm_choices")
   ),
 
   fluidRow(
