@@ -4,14 +4,32 @@ library(dplyr)
 generate_graph_tables <- function(graph) {
   # Calculate various network properties, adding them as attributes to each
   # node/vertex
-  print("Optimal communities...")
-  V(graph)$optimal_comm <- membership(optimal.community(graph))
+  if(!(is.directed(graph))) {
+    # Community detection algorithms that can only work on undirected graphs
+    print("Fastgreedy communities...")
+    V(graph)$fastgreedy_comm <- membership(fastgreedy.community(graph))
+    print("Multilevel communities...")
+    V(graph)$multilevel_comm <- membership(multilevel.community(graph, weights = E(graph)$weight))
+  }
+
   print("Walktrap communities...")
   V(graph)$walktrap_comm <- membership(walktrap.community(graph))
-  print("Spinglass commmunities")
-  V(graph)$spinglass_comm <- membership(spinglass.community(graph))
   print("Edge betweenness communities...")
   V(graph)$edge_comm <- membership(edge.betweenness.community(graph))
+
+  if(vcount(graph) < 80) {
+    # optimal.community has exponential time complexity, and should not be run
+    # on large graphs
+    print("Optimal communities...")
+    V(graph)$optimal_comm <- membership(optimal.community(graph))
+  }
+
+  if(is.connected(graph)) {
+    # Spinglass will only work on highly connected graphs
+    print("Spinglass commmunities")
+    V(graph)$spinglass_comm <- membership(spinglass.community(graph))
+  }
+
   print("Other node statistics...")
   V(graph)$degree <- degree(graph)
   V(graph)$closeness <- centralization.closeness(graph)$res
@@ -61,8 +79,8 @@ if(file.exists("data/karate.RData")) {
   karate_edgelist <- read.csv("data/csv/karate_edges.csv", stringsAsFactors = FALSE)
   karate_graph <- graph.data.frame(karate_edgelist, directed = FALSE)
   karate_tables <- generate_graph_tables(karate_graph)
-  karate_node_list <- karate_tables$nodes %>% mutate(name = as.numeric(name))
-  karate_edge_list <- karate_tables$edges %>% mutate(from = as.numeric(from), to = as.numeric(to))
+  karate_node_list <- karate_tables$nodes
+  karate_edge_list <- karate_tables$edges
   save(karate_node_list, karate_edge_list, file = "data/karate.RData")
 }
 
@@ -76,3 +94,4 @@ if(file.exists("data/polbooks.RData")) {
   polbooks_node_list <- polbooks_tables$nodes
   polbooks_edge_list <- polbooks_tables$edges
   save(polbooks_node_list, polbooks_edge_list, file = "data/polbooks.RData")
+}
