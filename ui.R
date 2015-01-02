@@ -10,26 +10,17 @@ fluidPage(
       "Dataset",
       choices = c(
         "Dutch Printmakers" = "goltzius",
-        "Les Misérables" = "les_mis"
+        "Les Misérables" = "les_mis",
+        "Karate Club" = "karate",
+        "Political Books" = "polbooks"
       ),
       selected = "goltzius"
     ),
 
     uiOutput("ordering_choices"),
 
-    selectInput(
-      "comm_var",
-      "Community Algorithm",
-      choices = c(
-        "Optimal Community" = "optimal_comm",
-        "Walktrap Community" = "walktrap_comm",
-        "Spinglass Community" = "spinglass_comm",
-        "Edge Betweenness Community" = "edge_comm"
-      ),
-      selected = "optimal_com"
-    )
+    uiOutput("comm_choices")
   ),
-
 
   fluidRow(
     column(4, includeMarkdown("description.md")),

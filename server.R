@@ -4,51 +4,66 @@ library(ggplot2)
 
 shinyServer(function(input, output, session) {
 
-  datasets <- observe({
-    node_list <- switch(
+  node_list <- reactive({
+    switch(
       input$graph_set,
       "goltzius" = goltzius_node_list,
-      "les_mis" = lm_node_list)
+      "les_mis" = lm_node_list,
+      "karate" = karate_node_list,
+      "polbooks" = polbooks_node_list
+    )
+  })
 
-    edge_list <- switch(
+  edge_list <- reactive({
+    switch(
       input$graph_set,
       "goltzius" = goltzius_edge_list,
-      "les_mis" = lm_edge_list
+      "les_mis" = lm_edge_list,
+      "karate" = karate_edge_list,
+      "polbooks" = polbooks_edge_list
+    )
+  })
+
+  # Generate a selection menu for ordering choices
+  output$ordering_choices <- renderUI({
+
+    base <- c(
+      "name",
+      "community"
     )
 
-    output$ordering_choices <- renderUI({
+    dataset_names <- names(node_list())
+    var_choices <- dataset_names[grep("comm", dataset_names, invert = TRUE)] %>% union(base)
 
-      base <- c(
-        "Alphabetical" = "alph",
-        "Community" = "comm",
-        "Degree" = "degree",
-        "Closeness Centrality" = "closeness",
-        "Betweenness Centrality" = "betweenness",
-        "Eigenvector Centrality" = "eigen"
-      )
+    return(selectInput(
+      "arr_var",
+      "Arrange by",
+      choices = var_choices,
+      selected = "name"
+    ))
+  })
 
-      if(input$graph_set == "goltzius") {
-        var_choices <- c(base, c("Artist birthdate" = "birth"))
-      } else {
-        var_choices <- base
-      }
+  # Generate a selection menu for community detection choices
+  output$comm_choices <- renderUI({
 
-      return(selectInput(
-        "arr_var",
-        "Arrange by",
-        choices = var_choices,
-        selected = "alph"
-      ))
-    })
+    dataset_names <- names(node_list())
+    comm_choices <- dataset_names[grep("comm", dataset_names)]
+
+    return(selectInput(
+      "comm_var",
+      "Community Algorithm",
+      choices = comm_choices,
+      selected = "walktrap_comm"
+    ))
+  })
+
 
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
-    if(input$arr_var == "alph") {
-      return((node_list %>% arrange(name))$name)
-    } else if(input$arr_var == "comm") {
-      return((node_list %>% arrange_(input$comm_var))$name)
+    if(input$arr_var == "community") {
+      return((node_list() %>% arrange_(input$comm_var))$name)
     } else {
-      return((node_list %>% arrange_(input$arr_var))$name)
+      return((node_list() %>% arrange_(input$arr_var))$name)
     }
   })
 
@@ -56,10 +71,10 @@ shinyServer(function(input, output, session) {
   # same community, label the edge with that community. If not,
   # the edge community value is 'NA'
   coloring <- reactive({
-    colored_edges <- edge_list %>%
-      inner_join(node_list %>% select_("name", "comm" = input$comm_var), by = c("from" = "name")) %>%
-      inner_join(node_list %>% select_("name", "comm" = input$comm_var), by = c("to" = "name")) %>%
-      mutate(group = ifelse(comm.x == comm.y, comm.x, NA) %>% factor())
+    colored_edges <- edge_list() %>%
+      inner_join(node_list() %>% select_("name", "community" = input$comm_var), by = c("from" = "name")) %>%
+      inner_join(node_list() %>% select_("name", "community" = input$comm_var), by = c("to" = "name")) %>%
+      mutate(group = ifelse(community.x == community.y, community.x, NA) %>% factor())
     return(colored_edges)
   })
 
@@ -67,8 +82,8 @@ shinyServer(function(input, output, session) {
   plot_data <- reactive({
     name_order <- ordering()
     sorted_data <- coloring() %>% mutate(
-        to = factor(to, levels = name_order),
-        from = factor(from, levels = name_order))
+      to = factor(to, levels = name_order),
+      from = factor(from, levels = name_order))
     return(sorted_data)
   })
 
@@ -92,8 +107,8 @@ shinyServer(function(input, output, session) {
   })
 
   comm_membership <- reactive({
-    membership_list <- node_list %>%
-      select_("name", "comm" = input$comm_var)
+    membership_list <- node_list() %>%
+      select_("name", "community" = input$comm_var)
     return(membership_list)
   })
 
@@ -102,14 +117,14 @@ shinyServer(function(input, output, session) {
     # Get a table of community memberships based on the selected community
     # detection method
     members <- comm_membership()
-    comms <- unique(members$comm)
+    comms <- unique(members$community)
 
     # Create and populate a list of HTML elements
     member_html <- list()
     for(i in comms) {
-      group_membs <- members$name[members$comm == i]
+      group_membs <- members$name[members$community == i]
       member_html[[i]] <- list(column(3,wellPanel(h3("Group", i), p(group_membs))))
     }
     return(member_html)
   })
-})})
+})
