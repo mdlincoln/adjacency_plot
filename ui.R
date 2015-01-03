@@ -35,7 +35,7 @@ fluidPage(
       checkboxInput("ann_var", "Annotate plot by node attribute sorting", FALSE)
     ),
 
-    wellPanel(
+    tags$cite(
       h4("About the dataset"),
       uiOutput("attribution")
     )
