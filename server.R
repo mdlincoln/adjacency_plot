@@ -183,7 +183,14 @@ shinyServer(function(input, output, session) {
           xmax = ann_max,
           ymin = ann_min,
           ymax = ann_max,
-          alpha = .1)
+          alpha = .1) +
+          annotate(
+            "text",
+            label = val,
+            x = ann_min,
+            y = ann_max,
+            hjust = 0
+          )
       }
     }
 
