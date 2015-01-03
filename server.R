@@ -177,9 +177,6 @@ shinyServer(function(input, output, session) {
         ann_min <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["min"]]
         ann_max <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["max"]]
 
-        print(ann_max)
-        print(ann_min)
-
         p <- p + annotate(
           "rect",
           xmin = ann_min,
