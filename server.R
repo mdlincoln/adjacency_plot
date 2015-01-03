@@ -10,7 +10,8 @@ shinyServer(function(input, output, session) {
       "goltzius" = goltzius_node_list,
       "les_mis" = lm_node_list,
       "karate" = karate_node_list,
-      "polbooks" = polbooks_node_list
+      "polbooks" = polbooks_node_list,
+      "copperfield" = copperfield_node_list
     )
   })
 
@@ -20,7 +21,8 @@ shinyServer(function(input, output, session) {
       "goltzius" = goltzius_edge_list,
       "les_mis" = lm_edge_list,
       "karate" = karate_edge_list,
-      "polbooks" = polbooks_edge_list
+      "polbooks" = polbooks_edge_list,
+      "copperfield" = copperfield_edge_list
     )
   })
 

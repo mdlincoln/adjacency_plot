@@ -95,3 +95,15 @@ if(file.exists("data/polbooks.RData")) {
   polbooks_edge_list <- polbooks_tables$edges
   save(polbooks_node_list, polbooks_edge_list, file = "data/polbooks.RData")
 }
+
+if(file.exists("data/copperfield.RData")) {
+  load("data/copperfield.RData")
+} else {
+  copperfield_edgelist <- read.csv("data/csv/copperfield_edges.csv", stringsAsFactors = FALSE)
+  copperfield_nodelist <- read.csv("data/csv/copperfield_nodes.csv", stringsAsFactors = FALSE)
+  copperfield_graph <- graph.data.frame(copperfield_edgelist, directed = FALSE, vertices = copperfield_nodelist)
+  copperfield_tables <- generate_graph_tables(copperfield_graph)
+  copperfield_node_list <- copperfield_tables$nodes
+  copperfield_edge_list <- copperfield_tables$edges
+  save(copperfield_node_list, copperfield_edge_list, file = "data/copperfield.RData")
+}

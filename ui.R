@@ -14,7 +14,8 @@ fluidPage(
         "Dutch Printmakers" = "goltzius",
         "Les Misérables" = "les_mis",
         "Karate Club" = "karate",
-        "Political Books" = "polbooks"
+        "Political Books" = "polbooks",
+        "'Copperfield' Noun/Adjective" = "copperfield"
       ),
       selected = "goltzius"
     ),
