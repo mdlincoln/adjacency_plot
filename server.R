@@ -167,10 +167,11 @@ shinyServer(function(input, output, session) {
         summarize(min = first(name), max = last(name)) %>%
         filter(min != max)
 
-      # For each node grouping, add an annotation layer
-      for(val in ordered_anns[[input$arr_var]]) {
+      print(glimpse(ordered_anns))
+      ann_groups <- ordered_anns[[input$arr_var]]
 
-        print(val)
+      # For each node grouping, add an annotation layer
+      for(val in ann_groups[!is.na(ann_groups)]) {
 
         # Retrieve the min and max value for the given group value
         ann_min <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["min"]]
