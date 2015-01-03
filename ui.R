@@ -4,6 +4,8 @@ library(markdown)
 fluidPage(
   titlePanel("Adjacency matrix visualization with R and ggplot2"),
 
+  wellPanel(includeMarkdown("description.md")),
+
   inputPanel(
     selectInput(
       "graph_set",
@@ -27,10 +29,7 @@ fluidPage(
       )
   ),
 
-  fluidRow(
-    column(4, includeMarkdown("description.md")),
-    column(8, plotOutput("adj_plot", height = "900px", width = "100%"))
-  ),
+  plotOutput("adj_plot", height = "1300px", width = "100%"),
 
   h2("Community membership"),
   htmlOutput("membership_list")
