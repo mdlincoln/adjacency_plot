@@ -18,7 +18,7 @@ You may arrange the axes by calculated attributes, such as closeness or betweenn
 Some networks have preexisting node attributes (for example, `political leaning` in the political books dataset).
 When arranging the plot by these preexisting attributes, you may add an overlay displaying these attributes, as a way to compare how a given attribute corresponds to structural communities.
 
-### Read more
+### Further Links
 
 [A blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
 
