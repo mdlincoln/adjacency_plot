@@ -22,6 +22,8 @@ When arranging the plot by these preexisting attributes, you may add an overlay 
 
 [A blog post on the creation and interpretation of these plots.](http://matthewlincoln.net/2014/12/20/adjacency-matrix-plots-with-r-and-ggplot2.html)
 
+[Shiny webapp repository](https://github.com/mdlincoln/adjacency_plot)
+
 Fekete, J., "Visualizing networks using adjacency matrices: Progresses and challenges," *11th IEEE International Conference on Computer-Aided Design and Computer Graphics, 2009*, (19-21 August 2009), 636, 638. doi: [10.1109/CADCG.2009.5246813](http://dx.doi.org.proxy-um.researchport.umd.edu/10.1109/CADCG.2009.5246813)
 
 [Mike Bostock's d3 implementation of adjacency plots.](http://bost.ocks.org/mike/miserables/)
