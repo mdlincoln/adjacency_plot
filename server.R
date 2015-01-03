@@ -26,6 +26,17 @@ shinyServer(function(input, output, session) {
     )
   })
 
+  output$attribution <- renderUI({
+    switch(
+      input$graph_set,
+      "goltzius" = includeMarkdown("data/citations/goltzius.md"),
+      "les_mis" = includeMarkdown("data/citations/les_mis.md"),
+      "karate" = includeMarkdown("data/citations/karate.md"),
+      "polbooks" = includeMarkdown("data/citations/polbooks.md"),
+      "copperfield" = includeMarkdown("data/citations/copperfield.md")
+      )
+  })
+
   # Generate a selection menu for ordering choices
   output$ordering_choices <- renderUI({
 

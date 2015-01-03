@@ -27,7 +27,12 @@ fluidPage(
     conditionalPanel(
       condition = "output.weighted",
       checkboxInput("alpha_weight", "Set alpha by edge weight", FALSE)
-      )
+    ),
+
+    wellPanel(
+      h4("About the dataset"),
+      uiOutput("attribution")
+    )
   ),
 
   plotOutput("adj_plot", height = "1300px", width = "100%"),
