@@ -164,7 +164,8 @@ shinyServer(function(input, output, session) {
       # Determine the "first" and "last" members of a node group
       ordered_anns <- node_list() %>%
         group_by_(input$arr_var) %>%
-        summarize(min = first(name), max = last(name))
+        summarize(min = first(name), max = last(name)) %>%
+        filter(min != max)
 
       # For each node grouping, add an annotation layer
       for(val in ordered_anns[[input$arr_var]]) {
