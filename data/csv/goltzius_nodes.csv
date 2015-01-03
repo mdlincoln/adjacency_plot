@@ -1,50 +1,50 @@
-"name","birth"
-"Philips Galle",1537
-"Jan van der Straet",1523
-"Raphael Sadeler I",1560
-"Maerten de Vos",1532
-"Albrecht Dürer",1471
-"Johannes Wierix",1539
-"Jan van de Velde II",1593
-"Joannes Galle",1600
-"Claes Jansz. Visscher",1587
-"Hendrik Hondius I",1573
-"Theodoor Galle",1571
-"Jan Harmensz. Muller",1571
-"Simon Frisius",1580
-"Hendrik Goltzius",1558
-"Crispijn de Passe the Elder",1564
-"Johann Theodor de Bry",1561
-"Johann Israel de Bry",1565
-"Antonius Wierix",1555
-"Balthasar Moncornet",1600
-"Hieronymus Wierix",1553
-"Polidoro da Caravaggio",1500
-"Abraham Bloemaert",1564
-"Jacob Matham",1571
-"Cornelis Cornelisz. van Haarlem",1562
-"Jan Saenredam",1565
-"Frans Hogenberg",1539
-"Karel van Mander I",1548
-"Maarten van Heemskerck",1498
-"Abraham Hogenberg",1590
-"Bernardino Passeri",NA
-"Jan Sadeler I",1550
-"Cornelis Galle I",1576
-"Robert de Boudous",1505
-"Jacob de Gheyn II",1565
-"Simon van de Passe",1595
-"Theodoor de Bry",1528
-"Adriaen Collaert",1560
-"Nicolaas de Bruyn",1571
-"Johannes Janssonius",1588
-"Ahasuerus van Londerseel",1572
-"Dirck Barendsz.",1534
-"Giuseppe Cesari d'Arpino",1568
-"Bartholomeus Spranger",1546
-"Zacharias Dolendo",1561
-"Anthonie Blocklandt van Montfoort",1504
-"Christoffel van Sichem I",1546
-"Christophe Plantin",1514
-"Cornelis Drebbel",1572
-"Christoffel van Sichem II",1581
+"name","birth","nationality"
+"Philips Galle",1537,"Flemish"
+"Jan van der Straet",1523,"Flemish"
+"Raphael Sadeler I",1560,"Flemish"
+"Maerten de Vos",1532,"Flemish"
+"Albrecht Dürer",1471,"German"
+"Johannes Wierix",1539,"Flemish"
+"Jan van de Velde II",1593,"Dutch"
+"Joannes Galle",1600,"Flemish"
+"Claes Jansz. Visscher",1587,"Dutch"
+"Hendrik Hondius I",1573,"Dutch"
+"Theodoor Galle",1571,"Flemish"
+"Jan Harmensz. Muller",1571,"Dutch"
+"Simon Frisius",1580,"Dutch"
+"Hendrik Goltzius",1558,"Dutch"
+"Crispijn de Passe the Elder",1564,"Flemish"
+"Johann Theodor de Bry",1561,"Flemish"
+"Johann Israel de Bry",1565,"Flemish"
+"Antonius Wierix",1555,"Flemish"
+"Balthasar Moncornet",1600,"French"
+"Hieronymus Wierix",1553,"Flemish"
+"Polidoro da Caravaggio",1500,"Italian"
+"Abraham Bloemaert",1564,"Dutch"
+"Jacob Matham",1571,"Dutch"
+"Cornelis Cornelisz. van Haarlem",1562,"Dutch"
+"Jan Saenredam",1565,"Dutch"
+"Frans Hogenberg",1539,"Flemish"
+"Karel van Mander I",1548,"Dutch"
+"Maarten van Heemskerck",1498,"Dutch"
+"Abraham Hogenberg",1590,"German"
+"Bernardino Passeri",NA,"Italian"
+"Jan Sadeler I",1550,"Flemish"
+"Cornelis Galle I",1576,"Flemish"
+"Robert de Boudous",1505,"Dutch"
+"Jacob de Gheyn II",1565,"Dutch"
+"Simon van de Passe",1595,"Dutch"
+"Theodoor de Bry",1528,"Flemish"
+"Adriaen Collaert",1560,"Flemish"
+"Nicolaas de Bruyn",1571,"Dutch"
+"Johannes Janssonius",1588,"Dutch"
+"Ahasuerus van Londerseel",1572,"Dutch"
+"Dirck Barendsz.",1534,"Dutch"
+"Giuseppe Cesari d'Arpino",1568,"Italian"
+"Bartholomeus Spranger",1546,"Dutch"
+"Zacharias Dolendo",1561,"Dutch"
+"Anthonie Blocklandt van Montfoort",1504,"Dutch"
+"Christoffel van Sichem I",1546,"Flemish"
+"Christophe Plantin",1514,"Flemish"
+"Cornelis Drebbel",1572,"Dutch"
+"Christoffel van Sichem II",1581,"Flemish"
