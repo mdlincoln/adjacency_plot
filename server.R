@@ -57,6 +57,11 @@ shinyServer(function(input, output, session) {
     ))
   })
 
+  weighted <- reactive({
+    return("weight" %in% names(edge_list()))
+  })
+  output$weighted <- reactive({weighted()})
+  outputOptions(output, 'weighted', suspendWhenHidden = FALSE)
 
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
@@ -88,8 +93,14 @@ shinyServer(function(input, output, session) {
   })
 
   output$adj_plot <- renderPlot({
-    ggplot(plot_data(), aes(x = from, y = to, fill = group)) +
-      geom_raster() +
+
+    if(weighted() & input$alpha_weight) {
+      p <- ggplot(plot_data(), aes(x = from, y = to, fill = group, alpha = weight))
+    } else {
+      p <- ggplot(plot_data(), aes(x = from, y = to, fill = group))
+    }
+
+    p <- p + geom_raster() +
       theme_bw() +
       # Because we need the x and y axis to display every node,
       # not just the nodes that have connections to each other,
@@ -104,6 +115,7 @@ shinyServer(function(input, output, session) {
         aspect.ratio = 1,
         # Hide the legend (optional)
         legend.position = "bottom")
+    return(p)
   })
 
   comm_membership <- reactive({

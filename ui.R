@@ -19,7 +19,12 @@ fluidPage(
 
     uiOutput("ordering_choices"),
 
-    uiOutput("comm_choices")
+    uiOutput("comm_choices"),
+
+    conditionalPanel(
+      condition = "output.weighted",
+      checkboxInput("alpha_weight", "Set alpha by edge weight", FALSE)
+      )
   ),
 
   fluidRow(
