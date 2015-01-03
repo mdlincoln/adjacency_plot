@@ -76,6 +76,35 @@ shinyServer(function(input, output, session) {
   output$weighted <- reactive({weighted()})
   outputOptions(output, 'weighted', suspendWhenHidden = FALSE)
 
+  # List non-calculated node attributes
+  annotate_vars <- reactive({
+
+    dataset_names <- names(node_list())
+
+    base <- c(
+      "name",
+      "degree",
+      "closeness",
+      "betweenness",
+      "eigen",
+      "walktrap_comm",
+      "edge_comm",
+      "optimal_comm",
+      "spinglass_comm",
+      "fastgreedy_comm",
+      "multilevel_comm"
+      )
+
+    return(setdiff(dataset_names, base))
+
+  })
+
+  annotatable <- reactive({
+    return(input$arr_var %in% annotate_vars())
+  })
+  output$annotate_vars <- reactive({annotatable()})
+  outputOptions(output, "annotate_vars", suspendWhenHidden = FALSE)
+
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
     if(input$arr_var == "community") {

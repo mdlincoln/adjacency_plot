@@ -29,6 +29,11 @@ fluidPage(
       checkboxInput("alpha_weight", "Set alpha by edge weight", FALSE)
     ),
 
+    conditionalPanel(
+      condition = "output.annotate_vars",
+      checkboxInput("ann_var", "Annotate plot by node attribute sorting", FALSE)
+    ),
+
     wellPanel(
       h4("About the dataset"),
       uiOutput("attribution")
