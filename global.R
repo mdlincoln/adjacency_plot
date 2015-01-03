@@ -107,3 +107,15 @@ if(file.exists("data/copperfield.RData")) {
   copperfield_edge_list <- copperfield_tables$edges
   save(copperfield_node_list, copperfield_edge_list, file = "data/copperfield.RData")
 }
+
+if(file.exists("data/football.RData")) {
+  load("data/football.RData")
+} else {
+  football_edgelist <- read.csv("data/csv/football_edges.csv", stringsAsFactors = FALSE)
+  football_nodelist <- read.csv("data/csv/football_nodes.csv", stringsAsFactors = FALSE)
+  football_graph <- graph.data.frame(football_edgelist, directed = FALSE, vertices = football_nodelist)
+  football_tables <- generate_graph_tables(football_graph)
+  football_node_list <- football_tables$nodes
+  football_edge_list <- football_tables$edges
+  save(football_node_list, football_edge_list, file = "data/football.RData")
+}

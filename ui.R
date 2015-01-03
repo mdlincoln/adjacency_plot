@@ -15,7 +15,8 @@ fluidPage(
         "Les Misérables" = "les_mis",
         "Karate Club" = "karate",
         "Political Books" = "polbooks",
-        "'Copperfield' Noun/Adjective" = "copperfield"
+        "'Copperfield' Noun/Adjective" = "copperfield",
+        "American College Football" = "football"
       ),
       selected = "goltzius"
     ),

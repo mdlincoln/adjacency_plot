@@ -11,7 +11,8 @@ shinyServer(function(input, output, session) {
       "les_mis" = lm_node_list,
       "karate" = karate_node_list,
       "polbooks" = polbooks_node_list,
-      "copperfield" = copperfield_node_list
+      "copperfield" = copperfield_node_list,
+      "football" = football_node_list
     )
   })
 
@@ -22,7 +23,8 @@ shinyServer(function(input, output, session) {
       "les_mis" = lm_edge_list,
       "karate" = karate_edge_list,
       "polbooks" = polbooks_edge_list,
-      "copperfield" = copperfield_edge_list
+      "copperfield" = copperfield_edge_list,
+      "football" = football_edge_list
     )
   })
 
@@ -33,7 +35,8 @@ shinyServer(function(input, output, session) {
       "les_mis" = includeMarkdown("data/citations/les_mis.md"),
       "karate" = includeMarkdown("data/citations/karate.md"),
       "polbooks" = includeMarkdown("data/citations/polbooks.md"),
-      "copperfield" = includeMarkdown("data/citations/copperfield.md")
+      "copperfield" = includeMarkdown("data/citations/copperfield.md"),
+      "football" = includeMarkdown("data/citations/football.md")
       )
   })
 
