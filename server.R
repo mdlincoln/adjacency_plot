@@ -76,6 +76,35 @@ shinyServer(function(input, output, session) {
   output$weighted <- reactive({weighted()})
   outputOptions(output, 'weighted', suspendWhenHidden = FALSE)
 
+  # List non-calculated node attributes
+  annotate_vars <- reactive({
+
+    dataset_names <- names(node_list())
+
+    base <- c(
+      "name",
+      "degree",
+      "closeness",
+      "betweenness",
+      "eigen",
+      "walktrap_comm",
+      "edge_comm",
+      "optimal_comm",
+      "spinglass_comm",
+      "fastgreedy_comm",
+      "multilevel_comm"
+      )
+
+    return(setdiff(dataset_names, base))
+
+  })
+
+  annotatable <- reactive({
+    return(input$arr_var %in% annotate_vars())
+  })
+  output$annotate_vars <- reactive({annotatable()})
+  outputOptions(output, "annotate_vars", suspendWhenHidden = FALSE)
+
   # Returns a character vector of the vertices ordered based on given variables
   ordering <- reactive({
     if(input$arr_var == "community") {
@@ -128,6 +157,43 @@ shinyServer(function(input, output, session) {
         aspect.ratio = 1,
         # Hide the legend (optional)
         legend.position = "bottom")
+
+    # Annotate the plot based on preexisting node attributes
+    if(annotatable() & input$ann_var) {
+
+      # Determine the "first" and "last" members of a node group
+      ordered_anns <- node_list() %>%
+        group_by_(input$arr_var) %>%
+        summarize(min = first(name), max = last(name)) %>%
+        filter(min != max)
+
+      print(glimpse(ordered_anns))
+      ann_groups <- ordered_anns[[input$arr_var]]
+
+      # For each node grouping, add an annotation layer
+      for(val in ann_groups[!is.na(ann_groups)]) {
+
+        # Retrieve the min and max value for the given group value
+        ann_min <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["min"]]
+        ann_max <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["max"]]
+
+        p <- p + annotate(
+          "rect",
+          xmin = ann_min,
+          xmax = ann_max,
+          ymin = ann_min,
+          ymax = ann_max,
+          alpha = .1) +
+          annotate(
+            "text",
+            label = val,
+            x = ann_min,
+            y = ann_max,
+            hjust = 0
+          )
+      }
+    }
+
     return(p)
   })
 
