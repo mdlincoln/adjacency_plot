@@ -157,6 +157,37 @@ shinyServer(function(input, output, session) {
         aspect.ratio = 1,
         # Hide the legend (optional)
         legend.position = "bottom")
+
+    # Annotate the plot based on preexisting node attributes
+    if(annotatable() & input$ann_var) {
+
+      # Determine the "first" and "last" members of a node group
+      ordered_anns <- node_list() %>%
+        group_by_(input$arr_var) %>%
+        summarize(min = first(name), max = last(name))
+
+      # For each node grouping, add an annotation layer
+      for(val in ordered_anns[[input$arr_var]]) {
+
+        print(val)
+
+        # Retrieve the min and max value for the given group value
+        ann_min <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["min"]]
+        ann_max <- ordered_anns[ordered_anns[, input$arr_var] == val, ][["max"]]
+
+        print(ann_max)
+        print(ann_min)
+
+        p <- p + annotate(
+          "rect",
+          xmin = ann_min,
+          xmax = ann_max,
+          ymin = ann_min,
+          ymax = ann_max,
+          alpha = .1)
+      }
+    }
+
     return(p)
   })
 
