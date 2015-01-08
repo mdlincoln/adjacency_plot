@@ -138,7 +138,7 @@ shinyServer(function(input, output, session) {
     print(axis_comms)
     axis_levels <- unique(axis_comms)
     print(axis_levels)
-    axis_pal <- brewer.pal(length(axis_levels), "Paired")
+    axis_pal <- brewer.pal(length(axis_levels), "Set3")
     print(axis_pal)
     axis_colors <- replace(axis_comms, axis_levels, axis_pal)
     print(axis_colors)
