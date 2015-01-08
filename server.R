@@ -128,6 +128,25 @@ shinyServer(function(input, output, session) {
     return(colored_edges)
   })
 
+  axis_colors <- reactive({
+
+    if(input$arr_var == "community") {
+      axis_comms <- (node_list() %>% arrange_(input$comm_var) %>% select_(input$comm_var))[[1]] %>% as.character()
+    } else {
+      axis_comms <- (node_list() %>% arrange_(input$arr_var) %>% select_(input$comm_var))[[1]] %>% as.character()
+    }
+    print(axis_comms)
+    axis_levels <- unique(axis_comms)
+    print(axis_levels)
+    axis_pal <- brewer.pal(length(axis_levels), "Paired")
+    print(axis_pal)
+    axis_colors <- replace(axis_comms, axis_levels, axis_pal)
+    print(axis_colors)
+
+    return(axis_colors)
+
+  })
+
   # Sort the edge list based on the given arrangement variable
   plot_data <- reactive({
     name_order <- ordering()
@@ -142,7 +161,7 @@ shinyServer(function(input, output, session) {
     if(weighted() & input$alpha_weight) {
       p <- ggplot(plot_data(), aes(x = from, y = to, fill = group, alpha = weight))
     } else {
-      p <- ggplot(plot_data(), aes(x = from, y = to, fill = group))
+      p <- ggplot(plot_data(), aes(x = from, y = to, fill = group, color = group))
     }
 
     p <- p + geom_raster() +
@@ -153,13 +172,25 @@ shinyServer(function(input, output, session) {
       scale_x_discrete(drop = FALSE) +
       scale_y_discrete(drop = FALSE) +
       theme(
-        # Rotate the x-axis lables so they are legible
-        axis.text.x = element_text(angle = 270, hjust = 0, size = 12),
-        axis.text.y = element_text(size = 12),
         # Force the plot into a square aspect ratio
         aspect.ratio = 1,
         # Hide the legend (optional)
         legend.position = "bottom")
+
+
+    axis_colors <- axis_colors()
+
+
+    # Rotate the x-axis lables so they are legible
+    p <- p + theme(
+      axis.text.x = element_text(
+        angle = 270,
+        hjust = 0,
+        color = axis_colors
+      ),
+      axis.text.y = element_text(
+        color = axis_colors
+      ))
 
     # Annotate the plot based on preexisting node attributes
     if(annotatable() & input$ann_var) {
