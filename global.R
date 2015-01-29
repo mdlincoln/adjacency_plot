@@ -44,6 +44,9 @@ generate_graph_tables <- function(graph) {
   if(is.directed(graph)) {
     return(list(nodes = node_list, edges = edge_list))
   } else {
+  # If a graph is undirected, it is necessary to "double" the edges, such that
+  # A -> B has the complement B -> A. This will keep the adjacency plot
+  # fully populated
     edge_list <- rbind(edge_list, edge_list %>% rename(from = to, to = from))
     return(list(nodes = node_list, edges = edge_list))
   }
