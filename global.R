@@ -52,6 +52,19 @@ generate_graph_tables <- function(graph) {
   }
 }
 
+# Load csv's from file
+load_export <- function(edge_filename, node_filename = NULL, directed = TRUE) {
+  edgdlist <- read.csv(edge_filename, stringsAsFactors = FALSE)
+  if(!(is.null(node_filename))) {
+    nodelist <- read.csv(node_filename, stringsAsFactors = FALSE)
+    graph <- graph.data.frame(edgelist, directed = directed, verices = nodelist)
+  } else {
+    graph <- graph.data.frame(edgelist, directed = directed)
+  }
+  tables <- generate_graph_tables(graph)
+  return(tables)
+}
+
 if(file.exists("data/goltzius.RData")) {
   load("data/goltzius.RData")
 } else {
