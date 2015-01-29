@@ -68,23 +68,18 @@ load_export <- function(edge_filename, node_filename = NULL, directed = TRUE) {
 if(file.exists("data/goltzius.RData")) {
   load("data/goltzius.RData")
 } else {
-  goltzius_edgelist <- read.csv("data/csv/goltzius_edges.csv", stringsAsFactors = FALSE)
-  goltzius_nodelist <- read.csv("data/csv/goltzius_nodes.csv", stringsAsFactors = FALSE)
-  goltzius_graph <- graph.data.frame(goltzius_edgelist, directed = TRUE, vertices = goltzius_nodelist)
-  goltzius_tables <- generate_graph_tables(goltzius_graph)
-  goltzius_node_list <- goltzius_tables$nodes
-  goltzius_edge_list <- goltzius_tables$edges
+  graph <- load_export("data/csv/goltzius_edges.csv", "data/csv/goltzius_nodes.csv", directed = TRUE)
+  goltzius_node_list <- graph$nodes
+  goltzius_edge_list <- graph$edges
   save(goltzius_edge_list, goltzius_node_list, file = "data/goltzius.RData")
 }
 
 if(file.exists("data/les_mis.RData")) {
   load("data/les_mis.RData")
 } else {
-  lm_edgelist <- read.csv("data/csv/les_mis_edges.csv", stringsAsFactors = FALSE)
-  lm_graph <- graph.data.frame(lm_edgelist, directed = FALSE)
-  lm_tables <- generate_graph_tables(lm_graph)
-  lm_node_list <- lm_tables$nodes
-  lm_edge_list <- lm_tables$edges
+  graph <- load_export("les_mis_edges.csv", directed = FALSE)
+  lm_node_list <- graph$nodes
+  lm_edge_list <- graph$edges
   save(lm_node_list, lm_edge_list, file = "data/les_mis.RData")
 }
 
@@ -92,46 +87,35 @@ if(file.exists("data/les_mis.RData")) {
 if(file.exists("data/karate.RData")) {
   load("data/karate.RData")
 } else {
-  karate_edgelist <- read.csv("data/csv/karate_edges.csv", stringsAsFactors = FALSE)
-  karate_graph <- graph.data.frame(karate_edgelist, directed = FALSE)
-  karate_tables <- generate_graph_tables(karate_graph)
-  karate_node_list <- karate_tables$nodes
-  karate_edge_list <- karate_tables$edges
+  graph <- load_export("data/csv/karate_edges.csv", directed = FALSE)
+  karate_node_list <- graph$nodes
+  karate_edge_list <- graph$edges
   save(karate_node_list, karate_edge_list, file = "data/karate.RData")
 }
 
 if(file.exists("data/polbooks.RData")) {
   load("data/polbooks.RData")
 } else {
-  polbooks_edgelist <- read.csv("data/csv/polbooks_edges.csv", stringsAsFactors = FALSE)
-  polbooks_nodelist <- read.csv("data/csv/polbooks_nodes.csv", stringsAsFactors = FALSE)
-  polbooks_graph <- graph.data.frame(polbooks_edgelist, directed = FALSE, vertices = polbooks_nodelist)
-  polbooks_tables <- generate_graph_tables(polbooks_graph)
-  polbooks_node_list <- polbooks_tables$nodes
-  polbooks_edge_list <- polbooks_tables$edges
+  graph <- load_export("data/csv/polbooks_edges.csv", "data/csv/polbooks_nodes.csv", directed = FALSE)
+  polbooks_node_list <- graph$nodes
+  polbooks_edge_list <- graph$edges
   save(polbooks_node_list, polbooks_edge_list, file = "data/polbooks.RData")
 }
 
 if(file.exists("data/copperfield.RData")) {
   load("data/copperfield.RData")
 } else {
-  copperfield_edgelist <- read.csv("data/csv/copperfield_edges.csv", stringsAsFactors = FALSE)
-  copperfield_nodelist <- read.csv("data/csv/copperfield_nodes.csv", stringsAsFactors = FALSE)
-  copperfield_graph <- graph.data.frame(copperfield_edgelist, directed = FALSE, vertices = copperfield_nodelist)
-  copperfield_tables <- generate_graph_tables(copperfield_graph)
-  copperfield_node_list <- copperfield_tables$nodes
-  copperfield_edge_list <- copperfield_tables$edges
+  graph <- load_export("data/csv/copperfield_edges.csv", "data/csv/copperfield_nodes.csv", directed = FALSE)
+  copperfield_node_list <- graph$nodes
+  copperfield_edge_list <- graph$edges
   save(copperfield_node_list, copperfield_edge_list, file = "data/copperfield.RData")
 }
 
 if(file.exists("data/football.RData")) {
   load("data/football.RData")
 } else {
-  football_edgelist <- read.csv("data/csv/football_edges.csv", stringsAsFactors = FALSE)
-  football_nodelist <- read.csv("data/csv/football_nodes.csv", stringsAsFactors = FALSE)
-  football_graph <- graph.data.frame(football_edgelist, directed = FALSE, vertices = football_nodelist)
-  football_tables <- generate_graph_tables(football_graph)
-  football_node_list <- football_tables$nodes
-  football_edge_list <- football_tables$edges
+  graph <- load_export("data/csv/football_edges.csv", "data/csv/football_nodes.csv", directed = FALSE)
+  football_node_list <- graph$nodes
+  football_edge_list <- graph$edges
   save(football_node_list, football_edge_list, file = "data/football.RData")
 }
