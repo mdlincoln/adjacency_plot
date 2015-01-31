@@ -171,7 +171,6 @@ shinyServer(function(input, output, session) {
         summarize(min = first(name), max = last(name)) %>%
         filter(min != max)
 
-      print(glimpse(ordered_anns))
       ann_groups <- ordered_anns[[input$arr_var]]
 
       # For each node grouping, add an annotation layer
