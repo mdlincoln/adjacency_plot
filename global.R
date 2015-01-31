@@ -54,10 +54,10 @@ generate_graph_tables <- function(graph) {
 
 # Load csv's from file
 load_export <- function(edge_filename, node_filename = NULL, directed = TRUE) {
-  edgdlist <- read.csv(edge_filename, stringsAsFactors = FALSE)
+  edgelist <- read.csv(edge_filename, stringsAsFactors = FALSE)
   if(!(is.null(node_filename))) {
     nodelist <- read.csv(node_filename, stringsAsFactors = FALSE)
-    graph <- graph.data.frame(edgelist, directed = directed, verices = nodelist)
+    graph <- graph.data.frame(edgelist, directed = directed, vertices = nodelist)
   } else {
     graph <- graph.data.frame(edgelist, directed = directed)
   }
@@ -77,7 +77,7 @@ if(file.exists("data/goltzius.RData")) {
 if(file.exists("data/les_mis.RData")) {
   load("data/les_mis.RData")
 } else {
-  graph <- load_export("les_mis_edges.csv", directed = FALSE)
+  graph <- load_export("data/csv/les_mis_edges.csv", directed = FALSE)
   lm_node_list <- graph$nodes
   lm_edge_list <- graph$edges
   save(lm_node_list, lm_edge_list, file = "data/les_mis.RData")
