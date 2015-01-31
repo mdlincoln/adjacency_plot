@@ -46,19 +46,24 @@ header <- dashboardHeader(title = title)
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
-    menuItem("About", tabName = "about"),
-    menuItem("Plot", tabName = "plot"),
-    menuItem("Communities", tabName = "communities")
+    menuItem("Plot", tabName = "plot", icon = icon("bar-chart")),
+    menuItem("Communities", tabName = "communities", icon = icon("users")),
+    menuItem("About", tabName = "about", icon = icon("info-circle"))
   ),
-  dataset_sel, citation, ordering, community, alpha, annotate
+  dataset_sel,
+  citation,
+  community,
   sidebarMenu(menuItem("Source Code", href = "https://github.com/mdlincoln/adjacency_plot", icon = icon("code")))
 )
 
 body <- dashboardBody(
   tabItems(
-    tabItem("plot", plot, icon = icon("bar-chart-0")),
-    tabItem("communities", membership, icon = icon("users")),
-    tabItem("about", description, icon = icon("list"))
+    tabItem(
+      "plot",
+      box(title = "Plot Properties", solidHeader = TRUE, status = "info", width = 12, fluidRow(column(4, ordering), column(4, annotate), column(4, alpha)), collapsible = TRUE),
+      box(width = 12, plot)),
+    tabItem("communities", membership),
+    tabItem("about", description)
   ))
 
 # Render and display
