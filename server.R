@@ -1,6 +1,7 @@
 library(shiny)
 library(dplyr)
 library(ggplot2)
+library(shinydashboard)
 
 shinyServer(function(input, output, session) {
 
@@ -170,7 +171,6 @@ shinyServer(function(input, output, session) {
         summarize(min = first(name), max = last(name)) %>%
         filter(min != max)
 
-      print(glimpse(ordered_anns))
       ann_groups <- ordered_anns[[input$arr_var]]
 
       # For each node grouping, add an annotation layer
@@ -217,7 +217,7 @@ shinyServer(function(input, output, session) {
     member_html <- list()
     for(i in comms) {
       group_membs <- members$name[members$community == i]
-      member_html[[i]] <- list(column(3,wellPanel(h3("Group", i), p(group_membs))))
+      member_html[[i]] <- list(box(title = paste("Group", i), width = 3, status = "info", p(group_membs)))
     }
     return(member_html)
   })
