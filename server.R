@@ -154,8 +154,10 @@ shinyServer(function(input, output, session) {
       scale_x_discrete(drop = FALSE) +
       scale_y_discrete(drop = FALSE) +
       theme(
-        # Rotate the x-axis lables so they are legible
-        axis.text.x = element_text(angle = 270, hjust = 0, size = 12),
+        # Rotate the x-axis lables so they are legible, 
+		# adjust position to account for the dislocation of
+        # strings on x axis when rotating
+        axis.text.x = element_text(angle = 270, hjust = 0, size = 12, vjust = 0.3),
         axis.text.y = element_text(size = 12),
         # Force the plot into a square aspect ratio
         aspect.ratio = 1,
